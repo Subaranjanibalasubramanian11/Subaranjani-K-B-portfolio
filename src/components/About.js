@@ -1,98 +1,60 @@
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+
+
 export default function About() {
+  const sectionRef   = useRef(null);
+  const headingRef   = useRef(null);
+  const introRef     = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      /* Heading */
+      gsap.from(headingRef.current, {
+        opacity: 0, y: 30, duration: 0.7,
+        scrollTrigger: { trigger: headingRef.current, start: "top 85%" },
+      });
+
+      /* Intro card */
+      gsap.from(introRef.current, {
+        opacity: 0, y: 40, duration: 0.6,
+        scrollTrigger: { trigger: introRef.current, start: "top 85%" },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="about">
-
-      <h2>About me</h2>
-
-      {/* ── TOP: Avatar + Intro ── */}
-      <div className="about-top">
-        <div className="about-avatar">SKB</div>
-        <div className="about-intro">
-          <h3 className="about-name">Subaranjani K B</h3>
-          <p className="about-role">Aspiring Full Stack Developer</p>
-          <p className="about-bio">
-            Passionate IT student who loves transforming ideas into scalable,
-            user-friendly web applications. I write clean code, learn fast,
-            and build things that matter.
-          </p>
-          <div className="about-tags">
-            <span>Full Stack</span>
-            <span>React</span>
-            <span>Python</span>
-            <span>Open to work</span>
-          </div>
-        </div>
+    <section id="about" ref={sectionRef} style={{ padding: '80px 20px' }}>
+      {/* Heading */}
+      <div ref={headingRef} style={{ textAlign: 'center', marginBottom: '40px' }}>
+        <p className="section-label">Who I Am</p>
+        <h2 className="section-title">About <span>Me</span></h2>
       </div>
 
-      {/* ── INFO CARDS ── */}
-      <div className="about-info-grid">
-        <div className="about-info-card">
-          <span className="info-label">Degree</span>
-          <span className="info-val">B.Sc. – Information Technology</span>
-        </div>
-        <div className="about-info-card">
-          <span className="info-label">Focus area</span>
-          <span className="info-val">Full Stack Web Development</span>
-        </div>
-        <div className="about-info-card">
-          <span className="info-label">Projects built</span>
-          <span className="info-val">3 real-world applications</span>
-        </div>
-        <div className="about-info-card">
-          <span className="info-label">Currently learning</span>
-          <span className="info-val">MongoDB · Node.js · Express.js</span>
-        </div>
-      </div>
-
-      <hr className="about-divider" />
-
-      {/* ── BOTTOM: Timeline + Skills ── */}
-      <div className="about-bottom-grid">
-
-        {/* Timeline */}
-        <div>
-          <p className="about-sub-title">Journey</p>
-          <div className="about-timeline">
-            {[
-              { title: "Started web development", sub: "HTML, CSS, JavaScript fundamentals", year: "Year 1" },
-              { title: "Built AI Resume Analyzer", sub: "Python · Flask · AI integration", year: "Year 2" },
-              { title: "GUVI Internship", sub: "Full stack user management system", year: "Internship" },
-              { title: "Mastering MERN stack", sub: "MongoDB · Express · React · Node", year: "Now" },
-            ].map((item, i) => (
-              <div className="timeline-item" key={i}>
-                <p className="tl-title">{item.title}</p>
-                <p className="tl-sub">{item.sub}</p>
-                <span className="tl-year">{item.year}</span>
-              </div>
-            ))}
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div ref={introRef} className="glass-card about-intro-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', maxWidth: '800px', padding: '40px', width: '100%' }}>
+          <div style={{ width: '180px', height: '180px', borderRadius: '8px', overflow: 'hidden', marginBottom: '20px', border: '3px solid var(--accent-1)' }}>
+            <img src={require('../assets/certificates/profile.jpeg')} alt="Subaranjani K B" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
-        </div>
-
-        {/* Skill bars */}
-        <div>
-          <p className="about-sub-title">Skill confidence</p>
-          {[
-            { name: "HTML / CSS", pct: 90 },
-            { name: "JavaScript / React", pct: 80 },
-            { name: "Python / Flask", pct: 75 },
-            { name: "MySQL / Databases", pct: 70 },
-            { name: "Node.js / Express", pct: 55 },
-          ].map((s, i) => (
-            <div className="skill-bar-row" key={i}>
-              <div className="skill-bar-header">
-                <span>{s.name}</span><span>{s.pct}%</span>
-              </div>
-              <div className="skill-bar-bg">
-                <div className="skill-bar-fill" style={{ width: `${s.pct}%` }}></div>
-              </div>
+          <div>
+            <p className="about-name" style={{ fontSize: '1.8rem', marginBottom: '8px' }}>K B Subaranjani</p>
+            <p className="about-role" style={{ fontSize: '1.1rem', marginBottom: '20px' }}>Full Stack Developer</p>
+            <p className="about-bio" style={{ textAlign: 'justify', fontSize: '1.1rem', lineHeight: '1.8', color: 'var(--text-secondary)', marginBottom: '20px' }}>
+              Hi, I am K B Subaranjani. I love coding and continuously learning new technologies. I have a strong passion for UI/UX design. I enjoy the process of debugging—finding errors, fixing them, and seeing the final output is incredibly satisfying. Overcoming these small challenges is how I develop my skills. I have strong skills in the MERN stack, and my ultimate goal is to become a highly proficient Full Stack Developer.
+            </p>
+            <div className="about-tags" style={{ justifyContent: 'center', marginTop: '20px' }}>
+              <span>MERN Stack</span>
+              <span>UI/UX</span>
+              <span>Problem Solving</span>
             </div>
-          ))}
-
-          <div className="about-goal-box">
-            <p><strong>Goal:</strong> Become a skilled Full Stack Developer — building impactful, scalable applications that solve real-world problems.</p>
           </div>
         </div>
-
       </div>
     </section>
   );
