@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import GooeyNav from "./react-bits/GooeyNav";
 import "./Certificates.css";
 
 import hackerrank from "../assets/certificates/hackerrank1.jpeg";
@@ -74,24 +75,27 @@ export default function Certificates() {
   }, [preview]);
 
   return (
-    <section id="certificates" ref={sectionRef}>
+    <section id="certificates" ref={sectionRef} style={{ zIndex: preview ? 99999 : undefined }}>
       <div className="cert-heading">
         <p className="section-label">Achievements</p>
         <h2 className="section-title">My <span>Certificates</span></h2>
       </div>
 
       {/* Filter bar */}
-      <div className="ct-filter-bar">
-        {FILTERS.map(f => (
-          <button
-            key={f.key}
-            className={`ct-filter${active === f.key ? " active" : ""}`}
-            onClick={() => setActive(f.key)}
-          >
-            {f.label}
-            {f.key === "all" && <span className="ct-filter-count">{CERTS.length}</span>}
-          </button>
-        ))}
+      <div className="ct-filter-bar" style={{ display: 'flex', justifyContent: 'center', marginBottom: '30px', paddingBottom: '10px' }}>
+        <GooeyNav
+          items={FILTERS.map(f => ({
+            label: f.key === "all" ? (
+              <span>
+                All <span className="ct-filter-count" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginLeft: '6px', padding: '2px 8px', borderRadius: '12px', fontSize: '12px', fontWeight: 'bold' }}>{CERTS.length}</span>
+              </span>
+            ) : f.label,
+            href: "#"
+          }))}
+          initialActiveIndex={FILTERS.findIndex(f => f.key === active)}
+          onChange={(index) => setActive(FILTERS[index].key)}
+          particleCount={12}
+        />
       </div>
 
       <p className="ct-count">

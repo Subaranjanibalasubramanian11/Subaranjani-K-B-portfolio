@@ -113,7 +113,7 @@ export default function Projects() {
             <p className="proj-num">0{i + 1}</p>
             <h3 className="proj-title">{proj.title}</h3>
             <p className="proj-tag">{proj.tag}</p>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '20px' }}>
+            <div className="proj-card-actions" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '20px', flexWrap: 'wrap', gap: '12px' }}>
               <p className="proj-hint" style={{ margin: 0 }}>
                 Click to view details <span className="proj-hint-arrow">↗</span>
               </p>

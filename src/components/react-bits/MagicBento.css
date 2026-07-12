@@ -1,0 +1,67 @@
+/* Border glow effect for cards with magic-bento-card--border-glow class */
+.magic-bento-card--border-glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 2px; /* thickness of the border glow */
+  background: radial-gradient(
+    var(--glow-radius, 200px) circle at var(--glow-x, 50%) var(--glow-y, 50%),
+    rgba(168, 85, 247, calc(var(--glow-intensity, 0) * 0.8)) 0%,
+    rgba(168, 85, 247, calc(var(--glow-intensity, 0) * 0.4)) 30%,
+    transparent 60%
+  );
+  border-radius: inherit;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+.magic-bento-card--border-glow:hover::after {
+  opacity: 1;
+}
+
+.magic-bento-card--border-glow:hover {
+  box-shadow:
+    0 4px 20px rgba(46, 24, 78, 0.4),
+    0 0 30px rgba(168, 85, 247, 0.15);
+}
+
+.particle-container {
+  position: relative;
+  overflow: visible; /* changed from hidden so particles can sometimes overflow, or keep hidden if we want to contain it */
+}
+
+/* Particle styling inside ParticleCard */
+.particle::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: rgba(168, 85, 247, 0.2);
+  border-radius: 50%;
+  z-index: -1;
+}
+
+/* Global spotlight styles */
+.global-spotlight {
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+  z-index: 20 !important;
+  pointer-events: none;
+}
+
+.bento-section {
+  position: relative;
+  user-select: none;
+}

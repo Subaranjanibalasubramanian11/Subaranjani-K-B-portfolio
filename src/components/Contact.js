@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FaHeart, FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaEnvelope, FaPaperPlane } from "react-icons/fa";
 import { SiLeetcode } from "react-icons/si";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -62,10 +62,6 @@ export default function Contact() {
         opacity: 0, y: 20, duration: 0.5, delay: 0.4,
         scrollTrigger: { trigger: ".contact-socials", start: "top 90%" },
       });
-      gsap.from(".contact-footer", {
-        opacity: 0, y: 16, duration: 0.5,
-        scrollTrigger: { trigger: ".contact-footer", start: "top 95%" },
-      });
     }, sectionRef);
     return () => ctx.revert();
   }, []);
@@ -94,7 +90,7 @@ export default function Contact() {
       </div>
 
       <p className="contact-intro" style={{ textAlign: 'center', marginBottom: '36px', maxWidth: '540px', color: 'var(--text-secondary)', lineHeight: '1.7' }}>
-        I'm always open to new opportunities and collaborations.
+        I'm always open to new opportunities and collaborations.<br />
         Fill out the form below and I'll get back to you as soon as possible!
       </p>
 
@@ -104,8 +100,8 @@ export default function Contact() {
         className="glass-card"
         style={{ width: '100%', maxWidth: '540px', padding: '36px 32px', borderRadius: '20px' }}
       >
-        <h3 style={{ marginBottom: '24px', fontSize: '1.3rem', fontWeight: 800, color: 'var(--text-primary)' }}>
-          ✉️ Send a Message
+        <h3 style={{ marginBottom: '24px', fontSize: '1.3rem', fontWeight: 800, color: 'var(--text-primary)', display: 'flex', alignItems: 'center' }}>
+          <FaPaperPlane style={{ marginRight: '10px', color: 'var(--accent-1)' }} /> Send a Message
         </h3>
 
         {/* Success Banner */}
@@ -122,29 +118,35 @@ export default function Contact() {
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {/* Name */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-            <label style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-secondary)' }}>Your Name *</label>
+            <label htmlFor="contact-name" style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-secondary)' }}>Your Name *</label>
             <input
+              id="contact-name"
               name="name" type="text" placeholder="e.g. Priya Sharma"
               value={form.name} onChange={handleChange}
+              autoComplete="name"
               style={inputStyle} required
             />
           </div>
 
           {/* Email */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-            <label style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-secondary)' }}>Your Email *</label>
+            <label htmlFor="contact-email" style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-secondary)' }}>Your Email *</label>
             <input
+              id="contact-email"
               name="email" type="email" placeholder="you@email.com"
               value={form.email} onChange={handleChange}
+              autoComplete="email"
               style={inputStyle} required
             />
           </div>
 
           {/* Enquiry Type */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-            <label style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-secondary)' }}>Enquiry Type</label>
+            <label htmlFor="contact-type" style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-secondary)' }}>Enquiry Type</label>
             <select
+              id="contact-type"
               name="type" value={form.type} onChange={handleChange}
+              autoComplete="off"
               style={{ ...inputStyle, appearance: 'none', cursor: 'pointer', background: 'rgba(255,255,255,0.60)' }}
             >
               {ENQUIRY_OPTIONS.map(o => <option key={o}>{o}</option>)}
@@ -153,10 +155,12 @@ export default function Contact() {
 
           {/* Message */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-            <label style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-secondary)' }}>Message *</label>
+            <label htmlFor="contact-message" style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-secondary)' }}>Message *</label>
             <textarea
+              id="contact-message"
               name="message" placeholder="Write your message here..."
               value={form.message} onChange={handleChange}
+              autoComplete="off"
               rows={5} required
               style={{ ...inputStyle, resize: 'vertical', lineHeight: '1.6' }}
             />
@@ -186,23 +190,19 @@ export default function Contact() {
       {/* Social links */}
       <div
         className="contact-socials"
-        style={{ marginTop: '28px', display: 'flex', gap: '14px', justifyContent: 'center', width: '100%', maxWidth: '540px', flexWrap: 'wrap' }}
+        style={{ marginTop: '28px', display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', width: '100%', maxWidth: '540px' }}
       >
-        <a href="https://github.com/Subaranjanibalasubramanian11" target="_blank" rel="noreferrer" className="btn-outline" style={{ flex: '1 1 140px', justifyContent: 'center', minWidth: '120px' }}>
+        <a href="https://github.com/Subaranjanibalasubramanian11" target="_blank" rel="noreferrer" className="btn-outline" style={{ justifyContent: 'center', flex: '0 1 auto', padding: '10px 20px', fontSize: '14px' }}>
           <FaGithub /> GitHub
         </a>
-        <a href="https://www.linkedin.com/in/subaranjani-balasubramanian-7a6b9930a" target="_blank" rel="noreferrer" className="btn-outline" style={{ flex: '1 1 140px', justifyContent: 'center', minWidth: '120px' }}>
+        <a href="https://www.linkedin.com/in/subaranjani-balasubramanian-7a6b9930a" target="_blank" rel="noreferrer" className="btn-outline" style={{ justifyContent: 'center', flex: '0 1 auto', padding: '10px 20px', fontSize: '14px' }}>
           <FaLinkedin /> LinkedIn
         </a>
-        <a href="https://leetcode.com/u/Subaranjani_K_B/" target="_blank" rel="noreferrer" className="btn-outline" style={{ flex: '1 1 140px', justifyContent: 'center', minWidth: '120px' }}>
+        <a href="https://leetcode.com/u/Subaranjani_K_B/" target="_blank" rel="noreferrer" className="btn-outline" style={{ justifyContent: 'center', flex: '0 1 auto', padding: '10px 20px', fontSize: '14px' }}>
           <SiLeetcode /> LeetCode
         </a>
       </div>
 
-      {/* Footer */}
-      <div className="contact-footer" style={{ marginTop: '56px', color: 'var(--text-muted)', fontSize: '0.9rem', textAlign: 'center' }}>
-        Made with <FaHeart color="#ef4444" style={{ display: 'inline-block', transform: 'translateY(2px)' }} /> by <span style={{ fontWeight: 700, color: 'var(--accent-1)' }}>Subaranjani K B</span> · 2026
-      </div>
     </section>
   );
 }

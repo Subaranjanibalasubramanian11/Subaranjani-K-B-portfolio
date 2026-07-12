@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FaBriefcase, FaGraduationCap } from "react-icons/fa";
 import { IoIosPeople } from "react-icons/io";
+import { ParticleCard, GlobalSpotlight } from './react-bits/MagicBento';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -33,6 +34,7 @@ const EXPERIENCES = [
 export default function Experience() {
   const sectionRef = useRef(null);
   const cardsRef = useRef([]);
+  const bentoRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -62,9 +64,11 @@ export default function Experience() {
         <h2 className="section-title">Work & <span>Education</span></h2>
       </div>
 
-      <div style={{ position: 'relative', maxWidth: '800px', margin: '0 auto' }}>
+      <GlobalSpotlight gridRef={bentoRef} glowColor="168, 85, 247" />
+      
+      <div ref={bentoRef} className="bento-section" style={{ position: 'relative', maxWidth: '800px', margin: '0 auto' }}>
         {/* Central timeline line */}
-        <div style={{
+        <div className="exp-timeline-line" style={{
           position: 'absolute',
           left: '31px',
           top: '10px',
@@ -81,7 +85,7 @@ export default function Experience() {
               style={{ display: 'flex', gap: '20px', alignItems: 'flex-start', position: 'relative' }}
             >
               {/* Timeline circle icon */}
-              <div style={{
+              <div className="exp-timeline-icon" style={{
                 width: '64px',
                 height: '64px',
                 borderRadius: '50%',
@@ -98,12 +102,20 @@ export default function Experience() {
               </div>
 
               {/* Card content */}
-              <div className="glass-card" style={{ flexGrow: 1, padding: '24px', position: 'relative' }}>
+              <ParticleCard
+                className="glass-card magic-bento-card magic-bento-card--border-glow"
+                particleCount={12}
+                glowColor="168, 85, 247"
+                enableTilt={true}
+                clickEffect={true}
+                enableMagnetism={false}
+                style={{ flexGrow: 1, padding: '24px', position: 'relative', overflow: 'hidden' }}
+              >
                 <span style={{ fontSize: '0.85rem', fontWeight: 'bold', color: 'var(--accent-2)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{exp.year}</span>
                 <h3 style={{ fontSize: '1.3rem', fontWeight: 'bold', marginTop: '6px', marginBottom: '4px', color: 'var(--text-primary)' }}>{exp.title}</h3>
                 <h4 style={{ fontSize: '0.95rem', fontWeight: '500', color: 'var(--accent-1)', marginBottom: '12px' }}>{exp.sub}</h4>
-                <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', lineHeight: '1.6' }}>{exp.desc}</p>
-              </div>
+                <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', lineHeight: '1.6', position: 'relative', zIndex: 2 }}>{exp.desc}</p>
+              </ParticleCard>
             </div>
           ))}
         </div>

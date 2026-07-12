@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import profileImg from '../assets/profile/profile_1.jpeg';
+import TiltedCard from './react-bits/TiltedCard';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -10,6 +12,9 @@ export default function About() {
   const sectionRef   = useRef(null);
   const headingRef   = useRef(null);
   const introRef     = useRef(null);
+  const nameRoleRef  = useRef(null);
+  const bioRef       = useRef(null);
+  const tagsRef      = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -22,6 +27,24 @@ export default function About() {
       /* Intro card */
       gsap.from(introRef.current, {
         opacity: 0, y: 40, duration: 0.6,
+        scrollTrigger: { trigger: introRef.current, start: "top 85%" },
+      });
+
+      /* Name and Role */
+      gsap.from(nameRoleRef.current, {
+        opacity: 0, y: 20, duration: 0.6, delay: 0.2,
+        scrollTrigger: { trigger: introRef.current, start: "top 85%" },
+      });
+
+      /* Bio */
+      gsap.from(bioRef.current, {
+        opacity: 0, y: 30, duration: 0.6, delay: 0.4,
+        scrollTrigger: { trigger: introRef.current, start: "top 85%" },
+      });
+
+      /* Tags */
+      gsap.from(tagsRef.current, {
+        opacity: 0, y: 20, duration: 0.6, delay: 0.6,
         scrollTrigger: { trigger: introRef.current, start: "top 85%" },
       });
     }, sectionRef);
@@ -39,16 +62,33 @@ export default function About() {
 
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <div ref={introRef} className="glass-card about-intro-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', maxWidth: '800px', padding: '40px', width: '100%' }}>
-          <div style={{ width: '180px', height: '180px', borderRadius: '8px', overflow: 'hidden', marginBottom: '20px', border: '3px solid var(--accent-1)' }}>
-            <img src={require('../assets/certificates/profile.jpeg')} alt="Subaranjani K B" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'center' }}>
+            <TiltedCard
+              imageSrc={profileImg}
+              altText="K B Subaranjani"
+              captionText="Subaranjani"
+              containerHeight={window.innerWidth < 480 ? "180px" : "240px"}
+              containerWidth={window.innerWidth < 480 ? "180px" : "240px"}
+              imageHeight={window.innerWidth < 480 ? "180px" : "240px"}
+              imageWidth={window.innerWidth < 480 ? "180px" : "240px"}
+              rotateAmplitude={14}
+              scaleOnHover={1.1}
+              showMobileWarning={false}
+              showTooltip={true}
+              displayOverlayContent={false}
+            />
           </div>
           <div>
-            <p className="about-name" style={{ fontSize: '1.8rem', marginBottom: '8px' }}>K B Subaranjani</p>
-            <p className="about-role" style={{ fontSize: '1.1rem', marginBottom: '20px' }}>Full Stack Developer</p>
-            <p className="about-bio" style={{ textAlign: 'justify', fontSize: '1.1rem', lineHeight: '1.8', color: 'var(--text-secondary)', marginBottom: '20px' }}>
+            <div ref={nameRoleRef}>
+              <p className="about-name" style={{ fontSize: '1.8rem', marginBottom: '8px' }}>K B Subaranjani</p>
+              <p className="about-role" style={{ fontSize: '1.1rem', marginBottom: '20px' }}>Full Stack Developer</p>
+            </div>
+            
+            <p ref={bioRef} className="about-bio" style={{ textAlign: 'justify', fontSize: '1.1rem', lineHeight: '1.8', color: 'var(--text-secondary)', marginBottom: '20px' }}>
               Hi, I am K B Subaranjani. I love coding and continuously learning new technologies. I have a strong passion for UI/UX design. I enjoy the process of debugging—finding errors, fixing them, and seeing the final output is incredibly satisfying. Overcoming these small challenges is how I develop my skills. I have strong skills in the MERN stack, and my ultimate goal is to become a highly proficient Full Stack Developer.
             </p>
-            <div className="about-tags" style={{ justifyContent: 'center', marginTop: '20px' }}>
+            
+            <div ref={tagsRef} className="about-tags" style={{ justifyContent: 'center', marginTop: '20px' }}>
               <span>MERN Stack</span>
               <span>UI/UX</span>
               <span>Problem Solving</span>
