@@ -34,6 +34,13 @@ const PROJECTS = [
     features: ["User registration & login", "Database integration (MySQL)", "Secure authentication", "Responsive frontend"],
     github: "https://github.com/Subaranjanibalasubramanian11/internship-project",
   },
+  {
+    title: "Personal Portfolio",
+    tag: "React.js · GSAP · CSS",
+    desc: "Designed and developed a responsive personal portfolio to showcase my projects, skills, and resume. Implemented smooth animations using GSAP and built custom UI components.",
+    features: ["Interactive UI with GSAP animations", "Fully responsive design", "Custom animated components", "Deployed on Vercel"],
+    github: "https://github.com/Subaranjanibalasubramanian11/Subaranjani-K-B-portfolio",
+  },
 ];
 
 export default function Projects() {
