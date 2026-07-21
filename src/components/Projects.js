@@ -7,6 +7,13 @@ gsap.registerPlugin(ScrollTrigger);
 
 const PROJECTS = [
   {
+    title: "MediSense AI",
+    tag: "React.js · Node.js · Express.js · MongoDB · Tailwind CSS",
+    desc: "Built a smart medicine wastage prevention system. Developed a rule-based AI engine to predict medicine quality and an automated algorithm matching excess stock with shortages.",
+    features: ["AI-Powered Quality Scoring", "Real-time Monitoring Dashboard", "Smart Redistribution System", "Secure JWT Authentication"],
+    github: "https://github.com/Subaranjanibalasubramanian11/MediSense-AI",
+  },
+  {
     title: "AI Resume Analyzer",
     tag: "Python · Flask · HTML · CSS",
     desc: "Built a web application to analyze resumes and provide improvement suggestions. Designed an intuitive interface for resume upload and result visualization.",
